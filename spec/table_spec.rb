@@ -28,7 +28,7 @@ RSpec.describe 'table.rb' do
   describe '#get_card_from_matrix' do
     it 'should return good card' do
       deck = Deck.new
-      card = deck.cards[7]
+      card = deck.cards[8]
       table = Table.new(deck)
       expect(table.get_card_from_matrix(1, 0).equals(card)).to eq true
     end
@@ -55,6 +55,27 @@ RSpec.describe 'table.rb' do
       card = Card.new(CardColour::SPADES, CardFigure::ACE)
       table.push_card_to_stack(card)
       expect(table.card_stack.pop).to eq card
+    end
+  end
+  describe '#matrix_has_cards' do
+    it 'should return true' do
+      deck = Deck.new
+      table = Table.new(deck)
+      expect(table.matrix_has_cards).to eq true
+    end
+    it 'should return false' do
+      deck = Deck.new
+      table = Table.new(deck)
+      cards = 51
+      (0..6).each do |i|
+        (0..7).each do |j|
+          if cards != 0
+            table.get_card_from_matrix(i, j)
+            cards -= 1
+          end
+        end
+      end
+      expect(table.matrix_has_cards).to eq false
     end
   end
 end
