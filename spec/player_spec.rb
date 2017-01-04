@@ -38,4 +38,16 @@ RSpec.describe 'player.rb' do
       expect(player.cards.count).to eq 0
     end
   end
+  describe '#cards?' do
+    it 'should return true' do
+      player = Player.new
+      card = Card.new(CardColour::SPADES, CardFigure::TWO)
+      player.cards.push(card)
+      expect(player.cards?).to eq true
+    end
+    it 'should return false' do
+      player = Player.new
+      expect(player.cards?).to eq false
+    end
+  end
 end

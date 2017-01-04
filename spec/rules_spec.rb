@@ -71,4 +71,17 @@ RSpec.describe 'rules.rb' do
       expect(Rules.can_put_card_to_stack(table, card)).to eq false
     end
   end
+  describe '#can_get_card_from_matrix' do
+    it 'should be true' do
+      deck = Deck.new
+      table = Table.new(deck)
+      expect(Rules.can_get_card_from_matrix(table, 2, 5)).to eq true
+    end
+    it 'should return false' do
+      deck = Deck.new
+      table = Table.new(deck)
+      table.card_matrix[2][5] = nil
+      expect(Rules.can_get_card_from_matrix(table, 2, 5)).to eq false
+    end
+  end
 end

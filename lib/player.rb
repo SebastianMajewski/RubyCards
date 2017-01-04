@@ -1,6 +1,6 @@
 # class of the player
 class Player
-  attr_accessor :cards
+  attr_reader :cards
 
   def initialize
     @cards = []
@@ -14,5 +14,9 @@ class Player
     card = @cards[index]
     @cards.delete_at(index)
     card
+  end
+
+  def cards?
+    cards.count != 0
   end
 end
