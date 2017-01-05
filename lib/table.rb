@@ -10,6 +10,7 @@ class Table
   end
 
   def get_card_from_matrix(row, column)
+    return nil unless matrix_has_cards
     card = @card_matrix[row][column]
     @card_matrix[row][column] = nil
     @cards_in_matrix -= 1
@@ -25,6 +26,6 @@ class Table
   end
 
   def matrix_has_cards
-    !@cards_in_matrix.zero?
+    @cards_in_matrix > 0
   end
 end

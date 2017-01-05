@@ -11,7 +11,8 @@ class Rules
   end
 
   def self.can_put_card_to_stack(table, card)
-    table.card_stack.last.colour == card.colour || table.card_stack.last.figure == card.figure
+    table.card_stack.last.colour == card.colour ||
+      table.card_stack.last.figure == card.figure
   end
 
   def self.can_get_card_from_matrix(table, i, j)
