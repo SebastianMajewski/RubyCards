@@ -42,28 +42,41 @@ class IO
     end
   end
 
-  def self.redraw(table, player)
+  def self.redraw(ai, table, player, actions)
     clear
-    print_game_view(table, player)
+    print_game_view(ai, table, player, actions)
   end
 
-  def self.print_game_view(table, player)
-    menu = MenuGraphics.get_graphic(table, player)
+  def self.suitable
+    puts 'Card was correct.'
+  end
+
+  def self.select_next
+    puts 'Select second card.'
+  end
+
+  def self.print_game_view(ai, table, player, actions)
+    ai = PlayerGraphics.get_ai_graphics(ai.me)
+    menu = MenuGraphics.get_graphic(actions)
     table = TableGraphics.get_graphic(table)
     player = PlayerGraphics.get_graphic(player)
     (0..menu.count).each do |i|
       table[i] += ' ' + menu[i].to_s
     end
+    puts ai
     puts table
     puts player
   end
 
-  def self.get_card_from_player(count)
+  def self.get_card_from_player(count, table, player, any)
     loop do
       puts 'Number:'
       number = gets
       next unless (1..count).to_a.include? number.to_i
-      return number.to_i
+      unless any
+        next unless Rules.can_put_card_to_stack(table, player.cards[number.to_i - 1])
+      end
+      return number.to_i - 1
     end
   end
 

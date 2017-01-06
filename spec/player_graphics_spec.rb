@@ -30,4 +30,11 @@ RSpec.describe 'player_graphics.rb' do
       expect(PlayerGraphics.get_graphic(player).count).to eq 9
     end
   end
+  describe '#get_ai_graphics' do
+    it 'should return array' do
+      player = Player.new
+      player.add_card(Card.new(CardColour::SPADES, CardFigure::TWO))
+      expect(PlayerGraphics.get_ai_graphics(player).class).to eq Array
+    end
+  end
 end

@@ -22,4 +22,18 @@ class PlayerGraphics
     end
     matrix
   end
+
+  def self.get_ai_graphics(player)
+    cards_array = player.cards.each_slice(20).to_a
+    matrix = []
+    cards_array.each do |array|
+      cards = ''
+      array.each do |card|
+        cards += CardGraphics.back_graphic
+        cards += ' '
+      end
+      matrix.push(cards)
+    end
+    matrix
+  end
 end
