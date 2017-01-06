@@ -2,8 +2,8 @@ require 'simplecov'
 SimpleCov.start
 
 require 'card'
-require 'cardcolour'
-require 'cardfigure'
+require 'card_colour'
+require 'card_figure'
 
 RSpec.describe 'card.rb' do
   let(:card) { Card.new(CardColour::SPADES, CardFigure::ACE) }

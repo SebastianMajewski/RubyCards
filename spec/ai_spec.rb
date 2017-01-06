@@ -4,11 +4,11 @@ SimpleCov.start
 require 'deck'
 require 'table'
 require 'card'
-require 'cardcolour'
-require 'cardfigure'
+require 'card_colour'
+require 'card_figure'
 require 'player'
 require 'ai'
-require 'ai_actions'
+require 'actions'
 
 RSpec.describe 'ai.rb' do
   describe '#constructor' do
@@ -64,7 +64,7 @@ RSpec.describe 'ai.rb' do
       ai = Ai.new
       ai.me.cards.push(Card.new(CardColour::SPADES, CardFigure::TWO))
       table.card_stack.push(Card.new(CardColour::DIAMOND, CardFigure::ACE))
-      expect(ai.first_card(table)).to eq AiActions::SURRENDER
+      expect(ai.first_card(table)).to eq Actions::SURRENDER
     end
     it 'should END_TURN' do
       table = Table.new(Deck.new)
@@ -78,14 +78,14 @@ RSpec.describe 'ai.rb' do
         end
       end
       ai = Ai.new
-      expect(ai.first_card(table)).to eq AiActions::END_TURN
+      expect(ai.first_card(table)).to eq Actions::END_TURN
     end
     it 'should PUT_CARD from matrix' do
       table = Table.new(Deck.new)
       ai = Ai.new
       table.card_matrix[0][0] = Card.new(CardColour::SPADES, CardFigure::TWO)
       table.card_stack.push(Card.new(CardColour::SPADES, CardFigure::KING))
-      expect(ai.first_card(table)).to eq AiActions::PUT_CARD
+      expect(ai.first_card(table)).to eq Actions::PUT_CARD
     end
     it 'should PUT_CARD from own' do
       table = Table.new(Deck.new)
@@ -101,7 +101,7 @@ RSpec.describe 'ai.rb' do
       ai = Ai.new
       ai.me.cards.push(Card.new(CardColour::SPADES, CardFigure::TWO))
       table.card_stack.push(Card.new(CardColour::SPADES, CardFigure::ACE))
-      expect(ai.first_card(table)).to eq AiActions::PUT_CARD
+      expect(ai.first_card(table)).to eq Actions::PUT_CARD
     end
   end
   describe '#second_card' do
@@ -117,14 +117,14 @@ RSpec.describe 'ai.rb' do
         end
       end
       ai = Ai.new
-      expect(ai.second_card(table)).to eq AiActions::END_TURN
+      expect(ai.second_card(table)).to eq Actions::END_TURN
     end
     it 'should PUT_CARD from matrix' do
       table = Table.new(Deck.new)
       ai = Ai.new
       table.card_matrix[0][0] = Card.new(CardColour::SPADES, CardFigure::ACE)
       table.card_stack.push(Card.new(CardColour::SPADES, CardFigure::KING))
-      expect(ai.second_card(table)).to eq AiActions::PUT_CARD
+      expect(ai.second_card(table)).to eq Actions::PUT_CARD
     end
     it 'should PUT_CARD from own' do
       table = Table.new(Deck.new)
@@ -140,7 +140,7 @@ RSpec.describe 'ai.rb' do
       ai = Ai.new
       ai.me.cards.push(Card.new(CardColour::SPADES, CardFigure::TWO))
       table.card_stack.push(Card.new(CardColour::SPADES, CardFigure::ACE))
-      expect(ai.second_card(table)).to eq AiActions::PUT_CARD
+      expect(ai.second_card(table)).to eq Actions::PUT_CARD
     end
   end
   describe '#make_turn' do
@@ -156,7 +156,7 @@ RSpec.describe 'ai.rb' do
         end
       end
       ai = Ai.new
-      expect(ai.make_turn(table)).to eq AiActions::END_TURN
+      expect(ai.make_turn(table)).to eq Actions::END_TURN
     end
     it 'should SURRENDER' do
       table = Table.new(Deck.new)
@@ -172,7 +172,7 @@ RSpec.describe 'ai.rb' do
       ai = Ai.new
       ai.me.cards.push(Card.new(CardColour::SPADES, CardFigure::TWO))
       table.card_stack.push(Card.new(CardColour::DIAMOND, CardFigure::ACE))
-      expect(ai.make_turn(table)).to eq AiActions::SURRENDER
+      expect(ai.make_turn(table)).to eq Actions::SURRENDER
     end
     it 'should END_TURN in second_card' do
       table = Table.new(Deck.new)
@@ -191,7 +191,31 @@ RSpec.describe 'ai.rb' do
       ai = Ai.new
       table.card_matrix[0][0] = Card.new(CardColour::SPADES, CardFigure::ACE)
       table.card_stack.push(Card.new(CardColour::SPADES, CardFigure::KING))
-      expect(ai.make_turn(table)).to eq AiActions::END_TURN
+      expect(ai.make_turn(table)).to eq Actions::END_TURN
+    end
+    it 'should PUT_CARD from matrix' do
+      table = Table.new(Deck.new)
+      ai = Ai.new
+      table.card_matrix[0][0] = Card.new(CardColour::SPADES, CardFigure::ACE)
+      table.card_stack.push(Card.new(CardColour::SPADES, CardFigure::KING))
+      expect(ai.make_turn(table)).to eq Actions::PUT_CARD
+    end
+    it 'should PUT_CARD from hand' do
+      table = Table.new(Deck.new)
+      cards = 51
+      (0..6).each do |i|
+        (0..7).each do |j|
+          if cards != 0
+            table.get_card_from_matrix(i, j)
+            cards -= 1
+          end
+        end
+      end
+      ai = Ai.new
+      ai.me.cards.push(Card.new(CardColour::DIAMOND, CardFigure::TWO))
+      ai.me.cards.push(Card.new(CardColour::SPADES, CardFigure::TWO))
+      table.card_stack.push(Card.new(CardColour::DIAMOND, CardFigure::ACE))
+      expect(ai.make_turn(table)).to eq Actions::PUT_CARD
     end
   end
 end

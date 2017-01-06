@@ -3,8 +3,8 @@ SimpleCov.start
 
 require 'card'
 require 'deck'
-require 'cardcolour'
-require 'cardfigure'
+require 'card_colour'
+require 'card_figure'
 
 RSpec.describe 'deck.rb' do
   let(:deck) { Deck.new }
@@ -50,7 +50,7 @@ RSpec.describe 'deck.rb' do
       condition = true
       deck.shuffle
       (0..(deck.cards.count - 1)).each do |i|
-        condition = false if deck.cards[i].equals(temp.cards[i])
+        condition = false unless deck.cards[i].equals(temp.cards[i])
       end
       expect(condition).to eq false
     end

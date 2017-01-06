@@ -8,7 +8,7 @@ class Ai
 
   def make_turn(table)
     result = first_card(table)
-    return second_card(table) if result == AiActions::PUT_CARD
+    return second_card(table) if result == Actions::PUT_CARD
     result
   end
 
@@ -46,12 +46,12 @@ class Ai
   def second_card(table)
     if table.matrix_has_cards
       table.push_card_to_stack(take_random(table))
-      AiActions::PUT_CARD
+      Actions::PUT_CARD
     elsif @me.cards?
       table.push_card_to_stack(@me.remove_card(rand(@me.cards.count)))
-      AiActions::PUT_CARD
+      Actions::PUT_CARD
     else
-      AiActions::END_TURN
+      Actions::END_TURN
     end
   end
 
@@ -60,18 +60,18 @@ class Ai
       card = take_random(table)
       if Rules.can_put_card_to_stack(table, card)
         table.push_card_to_stack(card)
-        return AiActions::PUT_CARD
+        return Actions::PUT_CARD
       else
         @me.add_card(card)
         return first_card(table)
       end
     elsif @me.cards?
       card = suitable_card(table)
-      return AiActions::SURRENDER if card.nil?
+      return Actions::SURRENDER if card.nil?
       table.push_card_to_stack(card)
-      AiActions::PUT_CARD
+      Actions::PUT_CARD
     else
-      AiActions::END_TURN
+      Actions::END_TURN
     end
   end
 end

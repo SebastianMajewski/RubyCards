@@ -1,7 +1,7 @@
-module AiActions
+module Actions
   END_TURN = 0
-  PUT_CARD = 1
+  PUT_CARD = 3
   GET_CARD_FROM_STACK = 2
-  GET_CARD_FROM_MATRIX = 3
+  GET_CARD_FROM_MATRIX = 1
   SURRENDER = 4
 end

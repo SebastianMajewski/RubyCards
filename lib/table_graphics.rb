@@ -28,10 +28,10 @@ class TableGraphics
                 ' ' + CardGraphics.back_graphic
               end
     end
-    temp += '     [' + CardGraphics.get_graphic(table.card_stack.last) + ']    |'
+    temp += '     [' + CardGraphics.get_graphic(table.card_stack.last) + ' ]   |'
     matrix.push(temp)
 
-    (5..8).each do |i|
+    (5..7).each do |i|
       temp = '| ' + i.to_s
       table.card_matrix[i - 1].each do |card|
         temp += if card.nil?
@@ -43,6 +43,16 @@ class TableGraphics
       temp += '            |'
       matrix.push(temp)
     end
+    temp = '| 8'
+    table.card_matrix[7].each do |card|
+      temp += if card.nil?
+                '  '
+              else
+                ' ' + CardGraphics.back_graphic
+              end
+    end
+    temp += '                      |'
+    matrix.push(temp)
 
     matrix.push('|                            |')
     matrix.push('------------------------------')

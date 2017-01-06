@@ -18,4 +18,13 @@ class Rules
   def self.can_get_card_from_matrix(table, i, j)
     !table.card_matrix[i][j].nil?
   end
+
+  def self.possible_actions(table, player)
+    actions = []
+    actions.push(Actions::GET_CARD_FROM_MATRIX) if Rules.can_get_any_card_from_matrix(table)
+    actions.push(Actions::GET_CARD_FROM_STACK) if Rules.can_get_card_from_stack(table)
+    actions.push(Actions::PUT_CARD) if player.cards? && table.matrix_has_cards
+    actions.push(Actions::SURRENDER)
+    actions
+  end
 end

@@ -4,8 +4,8 @@ SimpleCov.start
 require 'deck'
 require 'table'
 require 'card'
-require 'cardcolour'
-require 'cardfigure'
+require 'card_colour'
+require 'card_figure'
 require 'player'
 
 RSpec.describe 'player.rb' do

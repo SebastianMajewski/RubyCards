@@ -10,19 +10,15 @@ class PlayerGraphics
       numbers = ''
       cards = ''
       array.each do |card|
+        numbers += ' ' if number.to_s.length == 1
         numbers += number.to_s + ' '
-        spaces = (number / 10) / 2
-        spaces.times do
-          cards += ' '
-        end
         cards += CardGraphics.get_graphic(card)
-        spaces.times do
-          cards += ' '
-        end
+        cards += '  '
         number += 1
       end
       matrix.push(numbers)
       matrix.push(cards)
+      matrix.push('')
     end
     matrix
   end

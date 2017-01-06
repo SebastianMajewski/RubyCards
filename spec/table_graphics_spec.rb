@@ -4,8 +4,8 @@ SimpleCov.start
 require 'deck'
 require 'table'
 require 'card'
-require 'cardcolour'
-require 'cardfigure'
+require 'card_colour'
+require 'card_figure'
 require 'table_graphics'
 
 RSpec.describe 'table_graphics.rb' do
@@ -26,6 +26,7 @@ RSpec.describe 'table_graphics.rb' do
       table.card_matrix[1][6] = nil
       table.card_matrix[3][1] = nil
       table.card_matrix[6][3] = nil
+      table.card_matrix[7][0] = nil
       expect { TableGraphics.get_graphic(table) }.not_to raise_error
     end
   end

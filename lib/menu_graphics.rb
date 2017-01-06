@@ -4,9 +4,11 @@ class MenuGraphics
 
   def self.get_graphic(table, player)
     matrix = []
-    matrix.push('1. Get from matrix') if Rules.can_get_any_card_from_matrix(table)
-    matrix.push('2. Get from stack') if Rules.can_get_card_from_stack(table)
-    matrix.push('3. Put') if player.cards?
-    matrix.push('4. Resign')
+    actions = Rules.possible_actions(table, player)
+    matrix.push('Actions:')
+    matrix.push('1. Get from matrix') if actions.include? Actions::GET_CARD_FROM_MATRIX
+    matrix.push('2. Get from stack') if actions.include? Actions::GET_CARD_FROM_STACK
+    matrix.push('3. Put') if actions.include? Actions::PUT_CARD
+    matrix.push('4. Resign') if actions.include? Actions::SURRENDER
   end
 end
